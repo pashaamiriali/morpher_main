@@ -1,7 +1,9 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:morpher_main/Presentation/Screens/Home.Screen/Home.Screen.dart';
+import 'package:morpher_main/infrastructure/navigation/bindings/Home.Controller.Binding.dart';
 
 void main() {
   runApp(
@@ -17,13 +19,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
-      home: const HomeScreen(),
+      initialRoute: '/home',
+      getPages: [
+        GetPage(
+            name: '/home',
+            page: () => const HomeScreen(),
+            binding: HomeBinding()),
+      ],
     );
   }
 }
