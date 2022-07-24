@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:morpher_main/DTO/Models/workout_day/workout_day.dart';
 import 'package:morpher_main/Presentation/Screens/Home.Screen/Controllers/Home.Controller.dart';
+import 'package:morpher_main/Presentation/SharedWidgets/SharedWidgets.dart';
 
 class HomeScreen extends GetView<HomeController> {
   const HomeScreen({Key? key}) : super(key: key);
@@ -83,19 +84,7 @@ class HomeScreen extends GetView<HomeController> {
                 ),
               ],
             ),
-            Material(
-              shape: const BeveledRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20))),
-              shadowColor: const Color(0xffFFBC21),
-              elevation: 4,
-              color: const Color(0XFF2D2C3A),
-              child: SizedBox(
-                  height: 80,
-                  child:
-                      Center(child: Image.asset("assets/images/app_logo.png"))),
-            ),
+            const CustomAppBar(),
           ],
         ),
       ),
@@ -119,57 +108,64 @@ class WorkoutDayListItem extends StatelessWidget {
       decoration: const BoxDecoration(
           boxShadow: [BoxShadow(color: Color(0xffFFBC21), blurRadius: 6)],
           borderRadius: BorderRadius.all(Radius.circular(20))),
-      child: Material(
-        shape: const BeveledRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20))),
-        color: isToday ? const Color(0xffFFBC21) : const Color(0XFF2D2C3A),
-        shadowColor: const Color(0xffFFBC21),
-        child: Container(
-            height: 85,
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: [
-                Text(
-                  workoutDay.dayOfWeek,
-                  style: TextStyle(
-                      fontFamily: "Oswald SemiBold",
-                      fontSize: 30,
-                      color: isToday
-                          ? const Color(0xff2D2C3A)
-                          : const Color(0XFFCFCFCF)),
-                ),
-                const SizedBox(
-                  width: 26,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      workoutDay.dayTitle,
-                      style: TextStyle(
-                          fontFamily: "Oswald Regular",
-                          fontSize: 26,
-                          color: isToday
-                              ? const Color(0xff2D2C3A)
-                              : const Color(0XFFCFCFCF)),
-                    ),
-                    Text(
-                      workoutDay.isRestDay
-                          ? "..."
-                          : "${workoutDay.moves.length} moves ${lastRecord.substring(0, 7)}",
-                      style: TextStyle(
-                          fontFamily: "Oswald Regular",
-                          fontSize: 18,
-                          color: isToday
-                              ? const Color(0xff4C4B61)
-                              : const Color(0XFFB1B1B1)),
-                      textAlign: TextAlign.left,
-                    ),
-                  ],
-                )
-              ],
-            )),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        splashColor: const Color(0xffFFBC21),
+        onTap: () {
+          Get.toNamed('/start');
+        },
+        child: Material(
+          shape: const BeveledRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+          color: isToday ? const Color(0xffFFBC21) : const Color(0XFF2D2C3A),
+          shadowColor: const Color(0xffFFBC21),
+          child: Container(
+              height: 85,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: [
+                  Text(
+                    workoutDay.dayOfWeek,
+                    style: TextStyle(
+                        fontFamily: "Oswald SemiBold",
+                        fontSize: 30,
+                        color: isToday
+                            ? const Color(0xff2D2C3A)
+                            : const Color(0XFFCFCFCF)),
+                  ),
+                  const SizedBox(
+                    width: 26,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        workoutDay.dayTitle,
+                        style: TextStyle(
+                            fontFamily: "Oswald Regular",
+                            fontSize: 26,
+                            color: isToday
+                                ? const Color(0xff2D2C3A)
+                                : const Color(0XFFCFCFCF)),
+                      ),
+                      Text(
+                        workoutDay.isRestDay
+                            ? "..."
+                            : "${workoutDay.moves.length} moves ${lastRecord.substring(0, 7)}",
+                        style: TextStyle(
+                            fontFamily: "Oswald Regular",
+                            fontSize: 18,
+                            color: isToday
+                                ? const Color(0xff4C4B61)
+                                : const Color(0XFFB1B1B1)),
+                        textAlign: TextAlign.left,
+                      ),
+                    ],
+                  )
+                ],
+              )),
+        ),
       ),
     );
   }

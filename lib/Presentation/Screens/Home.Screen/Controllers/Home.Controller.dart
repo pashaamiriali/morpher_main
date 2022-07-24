@@ -11,7 +11,7 @@ class HomeController extends GetxController {
   }
 
   List<WorkoutDay> getWorkoutDays() {
-    var _workoutDays = [
+    var wdList = [
       WorkoutDay(
           dayOfWeek: "SAT",
           dayTitle: "Chest Day",
@@ -51,6 +51,6 @@ class HomeController extends GetxController {
           moves: [],
           lastFinishedRecord: const Duration(hours: 0))
     ];
-    return _workoutDays;
+    return wdList;
   }
 }
