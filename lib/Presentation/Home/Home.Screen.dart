@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:morpher_main/DTO/Models/workout_day/workout_day.dart';
-import 'package:morpher_main/Presentation/Screens/Home.Screen/Controllers/Home.Controller.dart';
-import 'package:morpher_main/Presentation/SharedWidgets/SharedWidgets.dart';
+import 'package:morpher_main/Core/DTO/Models/WorkoutDay/workout_day.dart';
+import 'package:morpher_main/Infrastructure/Navigation/routes.dart';
+import 'package:morpher_main/Presentation/Home/Controllers/Home.Controller.dart';
+import 'package:morpher_main/Presentation/SharedWidgets/Widgets.Shared.dart';
 
 class HomeScreen extends GetView<HomeController> {
   const HomeScreen({Key? key}) : super(key: key);
@@ -112,7 +113,7 @@ class WorkoutDayListItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         splashColor: const Color(0xffFFBC21),
         onTap: () {
-          Get.toNamed('/start');
+          Get.toNamed(Routes.MORPHER_START);
         },
         child: Material(
           shape: const BeveledRectangleBorder(

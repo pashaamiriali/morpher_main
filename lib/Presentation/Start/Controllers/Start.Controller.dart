@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:morpher_main/dto/models/workout_day/workout_day.dart';
+import 'package:morpher_main/Core/dto/models/WorkoutDay/workout_day.dart';
 
 class StartController extends GetxController {
   final workoutDay = WorkoutDay(

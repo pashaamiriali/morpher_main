@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:morpher_main/Presentation/Screens/Start.Screen/Controllers/Start.Controller.dart';
-import 'package:morpher_main/Presentation/SharedWidgets/SharedWidgets.dart';
-import 'package:morpher_main/dto/models/workout_day/workout_day.dart';
+import 'package:morpher_main/Infrastructure/Navigation/routes.dart';
+import 'package:morpher_main/Presentation/Start/Controllers/Start.Controller.dart';
+import 'package:morpher_main/Presentation/SharedWidgets/Widgets.Shared.dart';
+import 'package:morpher_main/Core/dto/models/WorkoutDay/workout_day.dart';
 
 class StartScreen extends GetView<StartController> {
   const StartScreen({Key? key}) : super(key: key);
@@ -58,7 +59,7 @@ class StartScreen extends GetView<StartController> {
                         horizontal: 60, vertical: 80),
                     itemCount: workoutDay.moves.length,
                     itemBuilder: (context, index) => WorkoutMovesPeekListItem(
-                        workoutMove: workoutDay.moves[index]),
+                        workoutMove:  workoutDay.moves[index]),//workoutDay.moves[index]),
                   )),
               const SizedBox(
                 height: 70,
@@ -85,7 +86,7 @@ class StartScreen extends GetView<StartController> {
       child: InkWell(
         splashColor: Colors.transparent,
         onTap: () {
-          Get.toNamed('/home');
+          Get.toNamed(Routes.MORPHER_HOME);
         },
         child: Container(
           color: const Color(0XFF2D2C3A),

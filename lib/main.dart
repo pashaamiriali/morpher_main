@@ -2,12 +2,14 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:morpher_main/Presentation/Screens/Home.Screen/Home.Screen.dart';
-import 'package:morpher_main/Presentation/Screens/Start.Screen/Start.Screen.dart';
-import 'package:morpher_main/infrastructure/navigation/bindings/Home.Controller.Binding.dart';
-import 'package:morpher_main/infrastructure/navigation/bindings/Start.Controller.Binding.dart';
+import 'package:morpher_main/Infrastructure/Navigation/navigation.dart';
+import 'injection_container.dart' as injection;
 
-void main() {
+
+import 'Infrastructure/Navigation/routes.dart';
+
+void main() async{
+  await injection.init();
   runApp(
     DevicePreview(
       enabled: !kReleaseMode,
@@ -27,17 +29,8 @@ class MyApp extends StatelessWidget {
       builder: DevicePreview.appBuilder,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
-      initialRoute: '/home',
-      getPages: [
-        GetPage(
-            name: '/home',
-            page: () => const HomeScreen(),
-            binding: HomeBinding()),
-        GetPage(
-            name: '/start',
-            page: () => const StartScreen(),
-            binding: StartBinding()),
-      ],
+      initialRoute: Routes.initialRoute,
+      getPages: Nav.routes,
     );
   }
 }

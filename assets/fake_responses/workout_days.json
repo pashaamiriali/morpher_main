@@ -1,0 +1,31 @@
+{
+  "Content": {
+    "WorkoutDays": [
+      {
+        "Id": "",
+        "DayOfWeek": "SAT",
+        "DayTitle": "ChestDay",
+        "IsRestDay": 0,
+        "LastFinishedRecord": 6360,
+        "Moves": [
+          {
+            "Id": "",
+            "Type": "SUPER",
+            "Title": "Chest Super set 75% weight",
+            "Moves": [
+              {
+                "Id": "",
+                "Type": "NORMAL",
+                "Title": "Dumbbell chest press"
+              }, {
+                "Id": "",
+                "Type": "NORMAL",
+                "Title": "Barbell chest press"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
