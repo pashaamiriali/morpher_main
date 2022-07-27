@@ -2,12 +2,15 @@ import 'package:get/get.dart';
 import 'package:morpher_main/Core/dto/models/WorkoutDay/workout_day.dart';
 
 class StartController extends GetxController {
+  final isPaused=false.obs;
   final workoutDay = WorkoutDay(
           dayOfWeek: '',
           dayTitle: '',
           moves: [],
           lastFinishedRecord: const Duration())
       .obs;
+
+
   @override
   void onReady() {
     workoutDay.update((val) {

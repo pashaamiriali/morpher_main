@@ -22,67 +22,8 @@ class HomeScreen extends GetView<HomeController> {
                 const SizedBox(
                   height: 80,
                 ),
-                Expanded(
-                    flex: 8,
-                    child: Obx(
-                      () => ListView.separated(
-                        padding: const EdgeInsets.symmetric(vertical: 40),
-                        itemCount: controller.workoutDays.length,
-                        itemBuilder: (context, index) => WorkoutDayListItem(
-                          workoutDay: controller.workoutDays[index],
-                          isToday: (index + 1) == dayOfWeek,
-                        ),
-                        separatorBuilder: (BuildContext context, int index) {
-                          return const SizedBox(
-                            height: 35,
-                          );
-                        },
-                      ),
-                    )),
-                Container(
-                  height: 70,
-                  color: const Color(0XFF2D2C3A),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 7.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.fitness_center,
-                                    size: 40,
-                                    color: Color(0xffFFBC21),
-                                  )),
-                              Container(
-                                decoration: const BoxDecoration(
-                                    color: Color(0xffFFBC21),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Color(0xffFFBC21),
-                                          blurRadius: 6,
-                                          offset: Offset(0, 2))
-                                    ]),
-                                width: 40,
-                                height: 3,
-                              )
-                            ],
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.public,
-                            size: 40,
-                            color: Color(0xffFFBC21),
-                          ),
-                        )
-                      ]),
-                ),
+                buildDaysList(dayOfWeek),
+                buildBottomButtonBar(),
               ],
             ),
             const CustomAppBar(),
@@ -90,6 +31,73 @@ class HomeScreen extends GetView<HomeController> {
         ),
       ),
     );
+  }
+
+  Container buildBottomButtonBar() {
+    return Container(
+                height: 70,
+                color: const Color(0XFF2D2C3A),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 7.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.fitness_center,
+                                  size: 40,
+                                  color: Color(0xffFFBC21),
+                                )),
+                            Container(
+                              decoration: const BoxDecoration(
+                                  color: Color(0xffFFBC21),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Color(0xffFFBC21),
+                                        blurRadius: 6,
+                                        offset: Offset(0, 2))
+                                  ]),
+                              width: 40,
+                              height: 3,
+                            )
+                          ],
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.public,
+                          size: 40,
+                          color: Color(0xffFFBC21),
+                        ),
+                      )
+                    ]),
+              );
+  }
+
+  Expanded buildDaysList(int dayOfWeek) {
+    return Expanded(
+                  flex: 8,
+                  child: Obx(
+                    () => ListView.separated(
+                      padding: const EdgeInsets.symmetric(vertical: 40),
+                      itemCount: controller.workoutDays.length,
+                      itemBuilder: (context, index) => WorkoutDayListItem(
+                        workoutDay: controller.workoutDays[index],
+                        isToday: (index + 1) == dayOfWeek,
+                      ),
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const SizedBox(
+                          height: 35,
+                        );
+                      },
+                    ),
+                  ));
   }
 }
 
@@ -101,6 +109,7 @@ class WorkoutDayListItem extends StatelessWidget {
   }) : super(key: key);
   final WorkoutDay workoutDay;
   final bool isToday;
+
   @override
   Widget build(BuildContext context) {
     String lastRecord = workoutDay.lastFinishedRecord.toString();
@@ -125,14 +134,8 @@ class WorkoutDayListItem extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 children: [
-                  Text(
-                    workoutDay.dayOfWeek,
-                    style: TextStyle(
-                        fontFamily: "Oswald SemiBold",
-                        fontSize: 30,
-                        color: isToday
-                            ? const Color(0xff2D2C3A)
-                            : const Color(0XFFCFCFCF)),
+                  SemiBoldText(
+                    text: workoutDay.dayOfWeek,
                   ),
                   const SizedBox(
                     width: 26,
@@ -141,27 +144,20 @@ class WorkoutDayListItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        workoutDay.dayTitle,
-                        style: TextStyle(
-                            fontFamily: "Oswald Regular",
-                            fontSize: 26,
-                            color: isToday
-                                ? const Color(0xff2D2C3A)
-                                : const Color(0XFFCFCFCF)),
+                      RegularText(
+                        text: workoutDay.dayTitle,
+                        color: isToday
+                            ? const Color(0xff2D2C3A)
+                            : const Color(0XFFCFCFCF),
                       ),
-                      Text(
-                        workoutDay.isRestDay
-                            ? "..."
-                            : "${workoutDay.moves.length} moves ${lastRecord.substring(0, 7)}",
-                        style: TextStyle(
-                            fontFamily: "Oswald Regular",
-                            fontSize: 18,
-                            color: isToday
-                                ? const Color(0xff4C4B61)
-                                : const Color(0XFFB1B1B1)),
-                        textAlign: TextAlign.left,
-                      ),
+                      RegularText(
+                          text: workoutDay.isRestDay
+                              ? "..."
+                              : "${workoutDay.moves.length} moves ${lastRecord.substring(0, 7)}",
+                          fontSize: 18,
+                          color: isToday
+                              ? const Color(0xff4C4B61)
+                              : const Color(0XFFB1B1B1)),
                     ],
                   )
                 ],
