@@ -2,10 +2,10 @@ import 'package:get/get.dart';
 import 'package:morpher_main/Core/DTO/Models/WorkoutDay/workout_day.dart';
 import 'package:morpher_main/Core/DTO/UseCases/WorkoutDaysUseCase/workout_days_usecase_request_dto.dart';
 import 'package:morpher_main/Core/DTO/UseCases/WorkoutDaysUseCase/workout_days_usecase_response_dto.dart';
-import 'package:morpher_main/Core/Interfaces/UseCases/i_workout_days_usecase.dart';
+import 'package:morpher_main/Core/UseCases/workout_days_usecase.dart';
 
 class HomeController extends GetxController {
-  final IWorkoutDaysUseCase workoutDaysUseCase;
+  final WorkoutDaysUseCase workoutDaysUseCase;
 
   HomeController({required this.workoutDaysUseCase});
 
@@ -24,51 +24,8 @@ class HomeController extends GetxController {
           //TODO: show some error
         }, (right) {
           workoutDays.addAll(getWorkoutDaysFromResponse(right));
-          print('d');
           update();
         }));
-    // workoutDays.addAll(getWorkoutDays());
-    // var wdList = [
-    //   WorkoutDay(
-    //       dayOfWeek: "SAT",
-    //       dayTitle: "Chest Day",
-    //       moves: List.generate(12, (index) => WorkoutMove("Bench Press")),
-    //       lastFinishedRecord: const Duration(hours: 1, minutes: 45)),
-    //   WorkoutDay(
-    //       dayOfWeek: "SUN",
-    //       dayTitle: "Rest Day",
-    //       isRestDay: true,
-    //       moves: [],
-    //       lastFinishedRecord: const Duration(hours: 0)),
-    //   WorkoutDay(
-    //       dayOfWeek: "MON",
-    //       dayTitle: "Lats & Biceps",
-    //       moves: List.generate(12, (index) => WorkoutMove("Bench Press")),
-    //       lastFinishedRecord: const Duration(hours: 1, minutes: 45)),
-    //   WorkoutDay(
-    //       dayOfWeek: "TUE",
-    //       dayTitle: "Shoulder & Triceps",
-    //       moves: List.generate(12, (index) => WorkoutMove("Bench Press")),
-    //       lastFinishedRecord: const Duration(hours: 1, minutes: 45)),
-    //   WorkoutDay(
-    //       dayOfWeek: "WEN",
-    //       dayTitle: "Rest Day",
-    //       isRestDay: true,
-    //       moves: [],
-    //       lastFinishedRecord: const Duration(hours: 0)),
-    //   WorkoutDay(
-    //       dayOfWeek: "THI",
-    //       dayTitle: "Leg Day",
-    //       moves: List.generate(12, (index) => WorkoutMove("Bench Press")),
-    //       lastFinishedRecord: const Duration(hours: 1, minutes: 45)),
-    //   WorkoutDay(
-    //       dayOfWeek: "FRI",
-    //       dayTitle: "Rest Day",
-    //       isRestDay: true,
-    //       moves: [],
-    //       lastFinishedRecord: const Duration(hours: 0))
-    // ];
-    // return wdList;
   }
 
   List<WorkoutDay> getWorkoutDaysFromResponse(

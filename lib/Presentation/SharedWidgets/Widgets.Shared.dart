@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:morpher_main/Infrastructure/Helper/screen_size_helper.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
     Key? key,
   }) : super(key: key);
+  static Size appBarSize = Size(double.maxFinite, rTDH(80));
+  static PreferredSize asPreferredSize = PreferredSize(
+      preferredSize: CustomAppBar.appBarSize, child: const CustomAppBar());
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +20,7 @@ class CustomAppBar extends StatelessWidget {
       elevation: 4,
       color: const Color(0XFF2D2C3A),
       child: SizedBox(
-          height: 80,
+          height: rTDH(80),
           child: Center(child: Image.asset("assets/images/app_logo.png"))),
     );
   }
@@ -27,44 +31,49 @@ class PrimaryButton extends StatelessWidget {
     Key? key,
     required this.onPressed,
     required this.text,
+    this.filled = true,
   }) : super(key: key);
   final Function onPressed;
   final String text;
+  final bool filled;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius: const BorderRadius.all(
-        Radius.circular(20),
+      borderRadius: BorderRadius.all(
+        Radius.circular(rTDW(20)),
       ),
       splashColor: Colors.transparent,
       onTap: () => onPressed(),
       child: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
             borderRadius: BorderRadius.all(
-              Radius.circular(20),
+              Radius.circular(rTDW(20)),
             ),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: Color(0xffFFBC21),
                 blurRadius: 6,
               )
             ]),
         child: Material(
-          shape: const BeveledRectangleBorder(
+          shape: BeveledRectangleBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(20),
+              Radius.circular(rTDW(20)),
             ),
           ),
-          color: const Color(0xffFFBC21),
+          color: filled ? const Color(0xffFFBC21) : const Color(0xff2D2C3A),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 18),
+            padding: EdgeInsets.symmetric(
+                horizontal: rTDW(20), vertical: rTDH(20)),
             child: Text(
               text,
-              style: const TextStyle(
-                  fontFamily: "Oswald SemiBold",
-                  fontSize: 30,
-                  color: Color(0XFF2D2C3A)),
+              style: TextStyle(
+                fontFamily: "Oswald SemiBold",
+                fontSize: rTDW(30),
+                color:
+                    filled ? const Color(0XFF2D2C3A) : const Color(0XFFCFCFCF),
+              ),
             ),
           ),
         ),
@@ -91,14 +100,14 @@ class SecondaryBottomButton extends StatelessWidget {
         onTap: () => onPressed(),
         child: Container(
           color: const Color(0XFF2D2C3A),
-          height: 70,
+          height: rTDH(70),
           child: Align(
             alignment: Alignment.bottomCenter,
             child: Text(
               text,
-              style: const TextStyle(
+              style:  TextStyle(
                 fontFamily: "Oswald Regular",
-                fontSize: 20,
+                fontSize: rTDW(20),
                 color: Color(0XFFCFCFCF),
               ),
             ),
@@ -128,7 +137,7 @@ class RegularText extends StatelessWidget {
       text,
       textAlign: textAlign,
       style: TextStyle(
-          fontFamily: "Oswald Regular", fontSize: fontSize, color: color),
+          fontFamily: "Oswald Regular", fontSize:rTDW(fontSize) , color: color),
     );
   }
 }
@@ -155,7 +164,7 @@ class SemiBoldText extends StatelessWidget {
       textAlign: textAlign,
       style: TextStyle(
           fontFamily: "Oswald SemiBold",
-          fontSize: fontSize,
+          fontSize:  rTDW(fontSize),
           color: color,
           shadows: hasShadow
               ? [
@@ -189,6 +198,30 @@ class LightText extends StatelessWidget {
       textAlign: textAlign,
       style: TextStyle(
           fontFamily: "Oswald Light", fontSize: fontSize, color: color),
+    );
+  }
+}
+
+class MediumText extends StatelessWidget {
+  const MediumText({
+    Key? key,
+    required this.text,
+    this.fontSize = 20,
+    this.color = const Color(0XFFCFCFCF),
+    this.textAlign = TextAlign.left,
+  }) : super(key: key);
+  final String text;
+  final double fontSize;
+  final Color color;
+  final TextAlign textAlign;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      textAlign: textAlign,
+      style: TextStyle(
+          fontFamily: "Oswald Medium", fontSize: fontSize, color: color),
     );
   }
 }

@@ -6,15 +6,21 @@ import 'package:morpher_main/Core/DTO/UseCases/WorkoutDaysUseCase/workout_days_u
 import 'package:morpher_main/Core/Helper/Failure.dart';
 import 'package:morpher_main/Core/Interfaces/Repositories/morpher_remote_data_source.dart';
 
-class FakeMorpherRemoteDataSource implements MorpherRemoteDataSource{
+class FakeMorpherRemoteDataSource implements MorpherRemoteDataSource {
   @override
-  Future<WorkoutDaysUseCaseResponseDTO> fetchWorkoutDays({required WorkoutDaysUseCaseRequestDTO requestDTO})async {
-    try{
-      var data=json.decode(await rootBundle.loadString("assets/fake_responses/workout_days.json"));
+  Future<WorkoutDaysUseCaseResponseDTO> fetchWorkoutDays(
+      {required WorkoutDaysUseCaseRequestDTO requestDTO}) async {
+    try {
+      var data = json.decode(await rootBundle
+          .loadString("assets/fake_responses/workout_days.json"));
       return WorkoutDaysUseCaseResponseDTO.fromJson(data['Content']);
-    }on Exception {
+    } on Exception {
       throw ConnectionFailure();
     }
   }
-  
+
+  @override
+  Future<bool> isAppFirstStart() {
+    return Future.delayed(const Duration(microseconds: 1), () => true);
+  }
 }
